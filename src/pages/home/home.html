@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic Blank
+      Tiekamerahaku
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -21,6 +21,7 @@
         </div>
       <h2>{{entry.presentationName}}</h2>
       <p>{{entry.measuredTime | date:"d/M/yy, H:m:ss "}} </p>
+        <p>{{entry.nearestWeatherStationId | temperatureData | async}} Celsius</p>
       </ion-slide>
     </ion-slides>
     <!--

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IcameraStationData} from "../../interfaces/cameraDataInterfaces";
+import { IweatherParent } from "../../interfaces/cameraDataInterfaces";
 
 /*
   Generated class for the DataProvider provider.
@@ -40,6 +41,8 @@ export class DataProvider {
      this.cameraData.cameraStations.map( entry => {
      // console.log(entry);
       entry.cameraPresets.map( cameraPreset => {
+        let nearestWeatherStationId = entry.nearestWeatherStationId;
+        cameraPreset.nearestWeatherStationId = nearestWeatherStationId;
         if(this.textComparer(searchEntry, cameraPreset))
         {
          // console.log('results were true: ' + searchEntry.searchtext + ' and ' + cameraPreset.presentationName)
@@ -52,6 +55,9 @@ export class DataProvider {
   }
 
 
+  getWeatherData (id) {
+    return this.http.get<IweatherParent>('/api/v1/data/weather-data/' + id)
+  }
 
   getSomeData() {
    return this.http.get<IcameraStationData[]>('/api/v1/data/camera-data/C01535' , this.httpsOptions);

@@ -39,9 +39,15 @@ export class HomePage {
 
   searchTown () {
   //  console.log(this.form.value);
-   this.cameraData =  this.data.getTownSearchResults(this.form.value);
-  // console.log(this.cameraData);
-   this.targetFound = true;
+    if(this.form.value)
+    {
+      this.cameraData =  this.data.getTownSearchResults(this.form.value);
+      this.targetFound = true;
+     // console.log(this.cameraData);
+    }else {
+      //send an alert saying that you need to put something to the search field
+    }
+
 //   this.slides.slideTo(1, 1);
   }
 /*

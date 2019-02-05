@@ -10,6 +10,7 @@ import { DataProvider } from '../providers/data/data';
 import { HttpClientModule } from "@angular/common/http";
 import * as ionicGalleryModal from 'ionic-gallery-modal';
 import { HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
+import { PipesModule } from "../pipes/pipes.module";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    ionicGalleryModal.GalleryModalModule
+    ionicGalleryModal.GalleryModalModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
