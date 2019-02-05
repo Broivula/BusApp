@@ -7,8 +7,28 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+
+  <form [formGroup]="form">
+  <ion-input type="text" formControlName="searchtext" color="dark" maxlength="25" placeholder="etsi kaupunkia" ></ion-input>
+    <button ion-button color="dark" (click)="searchTown()">Search</button>
+  </form>
+
+  <div *ngIf="targetFound">
+    <ion-slides  [pager]="false" #slides>
+      <ion-slide *ngFor="let entry of cameraData" >
+        <div class="swiper-zoom-container">
+          <img [src]="entry.imageUrl"/>
+        </div>
+      <h2>{{entry.presentationName}}</h2>
+      <p>{{entry.measuredTime | date:"d/M/yy, H:m:ss "}} </p>
+      </ion-slide>
+    </ion-slides>
+    <!--
+    <ion-item *ngFor="let entry of cameraData">
+     <img  [src]="entry.imageUrl">
+     <p> {{entry.presentationName}}</p>
+     <p>  {{entry.measuredTime | date:"d/M/yy, hh:mm:ss"}}</p>
+    </ion-item> -->
+  </div>
+
 </ion-content>

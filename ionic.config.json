@@ -2,5 +2,11 @@
   "name": "BusApp",
   "app_id": "",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {},
+  "proxies": [
+    {
+      "path":"/api",
+      "proxyUrl": "http://tie.digitraffic.fi/api"
+    }
+  ]
 }
