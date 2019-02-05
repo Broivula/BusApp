@@ -1,5 +1,5 @@
 export interface IcameraStationData {
-  'cameraStations':Object[]
+  'cameraStations':IcameraMainData
   'dataUpdatedTime': string;
 }
 
@@ -15,6 +15,11 @@ export interface IcameraPresets {
   'imageUrl'?: string;
   'measuredTime'?: string;
   'nearestWeatherStationId'?: number;
+}
+
+export interface IcameraDataParent {
+  'dataUpdatedTime'?: string;
+  'cameraStations'?: IcameraMainData[]
 }
 
 export interface IweatherParent {

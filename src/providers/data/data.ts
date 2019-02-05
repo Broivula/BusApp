@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IcameraStationData} from "../../interfaces/cameraDataInterfaces";
+import {IcameraStationData, IcameraDataParent, IcameraMainData} from "../../interfaces/cameraDataInterfaces";
 import { IweatherParent } from "../../interfaces/cameraDataInterfaces";
 
 /*
@@ -13,8 +13,9 @@ import { IweatherParent } from "../../interfaces/cameraDataInterfaces";
 export class DataProvider {
 
   roadCameraApiUrl = 'http://tie.digitraffic.fi';
-  public cameraData: IcameraStationData[];
+  public cameraData: IcameraMainData[];
   cachedCameraStationData = [];
+  cameraDataParent = {};
   public completeSearchResults = {};
   httpsOptions = {
     headers: {
@@ -28,21 +29,22 @@ export class DataProvider {
 
   constructor(public http: HttpClient) {
   }
-
   getAllCameraData () {
-    this.http.get<IcameraStationData[]>('/api/v1/data/camera-data', this.httpsOptions).subscribe( (res: IcameraStationData[]) => {
-      this.cameraData = res;
-   //   console.log(this.cameraData)
+    this.http.get<IcameraDataParent>('/api/v1/data/camera-data', this.httpsOptions).subscribe( (res: IcameraDataParent) => {
+      this.cameraDataParent = res;
+      this.cameraData = res.cameraStations;
+     console.log(this.cameraData)
     });
   }
 
+
   getTownSearchResults (searchEntry) {
     this.cachedCameraStationData.length = 0;
-     this.cameraData.cameraStations.map( entry => {
+     this.cameraData.map( entry => {
      // console.log(entry);
       entry.cameraPresets.map( cameraPreset => {
-        let nearestWeatherStationId = entry.nearestWeatherStationId;
-        cameraPreset.nearestWeatherStationId = nearestWeatherStationId;
+     //   let nearestWeatherStationId = entry.nearestWeatherStationId;
+        cameraPreset.nearestWeatherStationId = entry.nearestWeatherStationId;
         if(this.textComparer(searchEntry, cameraPreset))
         {
          // console.log('results were true: ' + searchEntry.searchtext + ' and ' + cameraPreset.presentationName)
