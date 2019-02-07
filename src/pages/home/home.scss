@@ -1,3 +1,30 @@
 page-home {
   background-color: dimgray;
 }
+#inputField {
+  color: #222222;
+  font-size: large;
+  background-color: honeydew;
+  border: none;
+  margin-left: 10%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  -webkit-transition: 0.5s;
+  outline: none;
+  height: auto;
+}
+#searchButton {
+  width: auto;
+  font-size: large;
+  border-radius: 4px;
+  margin-right: 5%;
+  margin-left: 3%;
+  height: auto;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}

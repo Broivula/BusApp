@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {IcameraStationData, IcameraDataParent, IcameraMainData} from "../../interfaces/cameraDataInterfaces";
+import { IcameraStationData, IcameraDataParent, IcameraMainData } from "../../interfaces/cameraDataInterfaces";
 import { IweatherParent } from "../../interfaces/cameraDataInterfaces";
+import { HomePage } from "../../pages/home/home";
 
 /*
   Generated class for the DataProvider provider.
@@ -30,12 +31,19 @@ export class DataProvider {
   constructor(public http: HttpClient) {
   }
   getAllCameraData () {
+    return new Promise((resolve, reject) => {
+      this.http.get<IcameraDataParent>('/api/v1/data/camera-data', this.httpsOptions).subscribe( (res : IcameraDataParent)=> {
+        this.cameraDataParent = res;
+        this.cameraData = res.cameraStations;
+        resolve(true);
+    })});
+
+/*
     this.http.get<IcameraDataParent>('/api/v1/data/camera-data', this.httpsOptions).subscribe( (res: IcameraDataParent) => {
       this.cameraDataParent = res;
       this.cameraData = res.cameraStations;
-     console.log(this.cameraData)
     });
-  }
+*/  }
 
 
   getTownSearchResults (searchEntry) {

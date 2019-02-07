@@ -1,35 +1,46 @@
-<ion-header>
+
+<div *ngIf="!loadingComplete" align-items-center >
+  <ion-spinner></ion-spinner>
+</div>
+
+
+
+<ion-header *ngIf="platform.isPortrait()">
   <ion-navbar color="primary">
-    <ion-title>
+    <ion-title text-center>
       Tiekamerahaku
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
 
-  <form [formGroup]="form">
-  <ion-input type="text" formControlName="searchtext" color="dark" maxlength="25" placeholder="etsi kaupunkia" ></ion-input>
-    <button ion-button color="dark" (click)="searchTown()">Search</button>
-  </form>
+<ion-content padding-top="5%" class="has-header">
+
+    <form *ngIf="platform.isPortrait()" [formGroup]="form" padding-bottom="20%" >
+      <div class="flex-container">
+        <ion-input type="text" formControlName="searchtext" color="primary" maxlength="25" placeholder="etsi kaupunkia" id="inputField"></ion-input>
+        <button ion-button color="dark" (click)="searchTown()" id="searchButton"> <ion-icon name="search"></ion-icon></button>
+      </div>
+    </form>
+
 
   <div *ngIf="targetFound">
-    <ion-slides  [pager]="false" #slides>
-      <ion-slide *ngFor="let entry of cameraData" >
+    <ion-slides  [pager]="false" #slides >
+      <ion-slide *ngFor="let entry of cameraData">
         <div class="swiper-zoom-container">
           <img [src]="entry.imageUrl"/>
         </div>
-      <h2>{{entry.presentationName}}</h2>
-      <p>{{entry.measuredTime | date:"d/M/yy, H:m:ss "}} </p>
-        <p>{{entry.nearestWeatherStationId | temperatureData | async}} Celsius</p>
+         <h2>{{entry.presentationName}}</h2>
+        <p><ion-icon name="calendar"></ion-icon>  {{entry.measuredTime | date:"d/M/yy"}} </p>
+        <p><ion-icon name="clock"></ion-icon>  {{entry.measuredTime | date:"H:m:ss "}}</p>
+        <p><ion-icon name="partly-sunny"></ion-icon>  {{entry.nearestWeatherStationId | temperatureData | async}} Celsius</p>
       </ion-slide>
     </ion-slides>
-    <!--
-    <ion-item *ngFor="let entry of cameraData">
-     <img  [src]="entry.imageUrl">
-     <p> {{entry.presentationName}}</p>
-     <p>  {{entry.measuredTime | date:"d/M/yy, hh:mm:ss"}}</p>
-    </ion-item> -->
+  </div>
+
+  <div *ngIf="noTargetsFound" padding-bottom>
+    <h3 padding-top>Kameroita ei löytynyt antamallasi hakusanalla.</h3>
   </div>
 
 </ion-content>
+

@@ -11,6 +11,8 @@ import { HttpClientModule } from "@angular/common/http";
 import * as ionicGalleryModal from 'ionic-gallery-modal';
 import { HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import { PipesModule } from "../pipes/pipes.module";
+import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx"
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { PipesModule } from "../pipes/pipes.module";
   providers: [
     StatusBar,
     SplashScreen,
+    ScreenOrientation,
     {
       provide: ErrorHandler,
       useClass: IonicErrorHandler
@@ -40,7 +43,7 @@ import { PipesModule } from "../pipes/pipes.module";
       provide: HAMMER_GESTURE_CONFIG,
     useClass: ionicGalleryModal.GalleryModalHammerConfig
     },
-    DataProvider
+    DataProvider,
   ]
 })
 export class AppModule {}
