@@ -14,7 +14,7 @@ import { HomePage } from "../../pages/home/home";
 export class DataProvider {
 
   roadCameraApiUrl = 'http://tie.digitraffic.fi';
-  public cameraData: IcameraMainData[];
+  public cameraData = [];
   cachedCameraStationData = [];
   cameraDataParent = {};
   public completeSearchResults = {};
@@ -31,6 +31,7 @@ export class DataProvider {
   constructor(public http: HttpClient) {
   }
   getAllCameraData () {
+    this.cameraData.length = 0;
     return new Promise((resolve, reject) => {
       this.http.get<IcameraDataParent>('/api/v1/data/camera-data', this.httpsOptions).subscribe( (res : IcameraDataParent)=> {
         this.cameraDataParent = res;
@@ -85,7 +86,7 @@ export class DataProvider {
       return false;
     }else {
       //so first get rid of the whitetext of both entries
-      let sT = searchTerm.searchtext.replace(/\s/g, '').toLowerCase();
+      let sT = searchTerm.replace(/\s/g, '').toLowerCase();
       let pT = nameOfCameraPlace.presentationName.replace(/\s/g, '').toLowerCase();
       if( sT.includes([pT,]) || pT.includes([sT,]))
       {
