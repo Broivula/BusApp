@@ -13,6 +13,8 @@ import { HAMMER_GESTURE_CONFIG} from "@angular/platform-browser";
 import { PipesModule } from "../pipes/pipes.module";
 import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx"
 import { Keyboard } from "@ionic-native/keyboard/ngx";
+import { AdMobFree } from "@ionic-native/admob-free/ngx";
+import { PhotoViewer } from "@ionic-native/photo-viewer/ngx";
 
 
 @NgModule({
@@ -37,6 +39,8 @@ import { Keyboard } from "@ionic-native/keyboard/ngx";
     SplashScreen,
     ScreenOrientation,
     Keyboard,
+    AdMobFree,
+    PhotoViewer,
     {
       provide: ErrorHandler,
       useClass: IonicErrorHandler

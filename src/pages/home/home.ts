@@ -8,6 +8,8 @@ import { Platform } from "ionic-angular";
 import { Content } from "ionic-angular";
 import { ScreenOrientation } from "@ionic-native/screen-orientation/ngx"
 import { Keyboard } from "@ionic-native/keyboard/ngx";
+import { AdMobFree, AdMobFreeBannerConfig } from "@ionic-native/admob-free/ngx";
+import { PhotoViewer } from "@ionic-native/photo-viewer/ngx";
 
 @Component({
   selector: 'page-home',
@@ -34,8 +36,23 @@ export class HomePage {
       private formbuilder: FormBuilder,
       private platform: Platform,
       private screenOrientation: ScreenOrientation,
-      private keyboard: Keyboard
+      private keyboard: Keyboard,
+      private adMobFree: AdMobFree,
+      private photoViewer: PhotoViewer,
       ) {
+
+    let bannerConfig: AdMobFreeBannerConfig = {
+      //id: 'ca-app-pub-2170320454462876/4757905801',
+      isTesting: true,
+      autoShow: true
+    };
+    this.adMobFree.banner.config(bannerConfig);
+    this.adMobFree.banner.prepare().then(() => {
+      // this.adMobFree.banner.show();
+    }).catch(e => {
+      console.log('something went wrong with admob: ' + e)
+    });
+
     this.form = this.formbuilder.group({
       searchtext: [''],
     });
@@ -44,10 +61,15 @@ export class HomePage {
     window.addEventListener("orientationchange", () => {
       try {
       }catch (e) {
+        this.consolelog  = e;
         console.log('error: ' + e)
       }
     })
 
+  }
+
+  viewPhoto(url){
+    this.photoViewer.show(url, null, {share: true, closeButton: true})
   }
 
   searchTown () {
@@ -75,11 +97,6 @@ export class HomePage {
       //send an alert saying that you need to put something to the search field
     }
 
-//   this.slides.slideTo(1, 1);
-  }
-
-  async ionViewDidEnter() {
- //   this.slides.slideTo(1);
   }
 
   slideToFirst (){

@@ -18,8 +18,8 @@
 
     <form *ngIf="platform.isPortrait()" [formGroup]="form" padding-bottom="20%" >
       <div class="flex-container">
-        <ion-input type="text" formControlName="searchtext" color="primary" maxlength="25" placeholder="etsi kaupunkia" id="inputField"></ion-input>
-        <button ion-button color="dark" (click)="searchTown()" id="searchButton"> <ion-icon name="search"></ion-icon></button>
+        <ion-input *ngIf="this.loadingComplete" type="text" formControlName="searchtext" color="primary" maxlength="25" placeholder="etsi kaupunkia" id="inputField"></ion-input>
+        <button *ngIf="this.loadingComplete"  ion-button color="dark" (click)="searchTown()" id="searchButton"> <ion-icon name="search"></ion-icon></button>
       </div>
     </form>
 
@@ -32,7 +32,7 @@
     <ion-label color="danger" float-right padding-right="20%">{{cameraData.length}} osumaa!</ion-label>
     <ion-slides  [pager]="false" #slides [zoom]="true">
       <ion-slide *ngFor="let entry of cameraData">
-        <div class="swiper-zoom-container">
+        <div class="swiper-zoom-container" tappable (click)="viewPhoto(entry.imageUrl)">
           <img [src]="entry.imageUrl"/>
         </div>
          <h2>{{entry.presentationName}}</h2>
@@ -45,6 +45,7 @@
 
   <div *ngIf="noTargetsFound" padding-bottom>
     <h3 padding-top>Kameroita ei löytynyt antamallasi hakusanalla.</h3>
+    <h5> Kokeile jotain kohteesi lähellä olevaa suurempaa kaupunkia hakusanana.. </h5>
   </div>
   <p>{{consolelog}}</p>
 </ion-content>
